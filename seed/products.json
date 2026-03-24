@@ -1,0 +1,222 @@
+[
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0001" },
+    "name": "Wireless Noise-Cancelling Headphones",
+    "description": "Premium over-ear headphones with active noise cancellation, 30-hour battery life, and Hi-Res Audio support. Perfect for music lovers and professionals.",
+    "price": 299.99,
+    "stock": 45,
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
+    "category": "Electronics",
+    "createdAt": { "$date": "2024-01-20T09:00:00.000Z" },
+    "updatedAt": { "$date": "2024-01-20T09:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0002" },
+    "name": "Smart Watch Pro",
+    "description": "Advanced smartwatch with health monitoring, GPS tracking, AMOLED display, and 7-day battery life. Water resistant up to 50 meters.",
+    "price": 399.99,
+    "stock": 30,
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80",
+    "category": "Electronics",
+    "createdAt": { "$date": "2024-01-22T10:00:00.000Z" },
+    "updatedAt": { "$date": "2024-01-22T10:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0003" },
+    "name": "Minimalist Leather Backpack",
+    "description": "Handcrafted genuine leather backpack with laptop compartment, anti-theft design, and water-resistant coating. Available in classic brown.",
+    "price": 149.99,
+    "stock": 25,
+    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
+    "category": "Accessories",
+    "createdAt": { "$date": "2024-01-25T11:00:00.000Z" },
+    "updatedAt": { "$date": "2024-01-25T11:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0004" },
+    "name": "Running Shoes Ultra",
+    "description": "Lightweight running shoes with responsive cushioning, breathable mesh upper, and durable rubber outsole. Ideal for daily training and marathon running.",
+    "price": 179.99,
+    "stock": 60,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80",
+    "category": "Footwear",
+    "createdAt": { "$date": "2024-02-01T09:30:00.000Z" },
+    "updatedAt": { "$date": "2024-02-01T09:30:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0005" },
+    "name": "Mechanical Keyboard RGB",
+    "description": "Full-size mechanical keyboard with Cherry MX switches, per-key RGB lighting, aluminum frame, and USB-C connectivity. Tactile feedback for precision typing.",
+    "price": 159.99,
+    "stock": 40,
+    "image": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=500&q=80",
+    "category": "Electronics",
+    "createdAt": { "$date": "2024-02-05T14:00:00.000Z" },
+    "updatedAt": { "$date": "2024-02-05T14:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0006" },
+    "name": "Ceramic Coffee Mug Set",
+    "description": "Set of 4 handcrafted ceramic mugs with minimalist design. 12oz capacity, microwave and dishwasher safe. Comes in earth tone colors.",
+    "price": 49.99,
+    "stock": 80,
+    "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=500&q=80",
+    "category": "Home & Kitchen",
+    "createdAt": { "$date": "2024-02-10T08:00:00.000Z" },
+    "updatedAt": { "$date": "2024-02-10T08:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0007" },
+    "name": "Fitness Resistance Bands",
+    "description": "Set of 5 latex resistance bands with varying resistance levels. Includes carrying bag, door anchor, and exercise guide. Perfect for home workouts.",
+    "price": 29.99,
+    "stock": 100,
+    "image": "https://images.unsplash.com/photo-1598632640487-6ea4a4e8b963?w=500&q=80",
+    "category": "Sports",
+    "createdAt": { "$date": "2024-02-15T10:30:00.000Z" },
+    "updatedAt": { "$date": "2024-02-15T10:30:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0008" },
+    "name": "Polarized Sunglasses",
+    "description": "UV400 protection polarized sunglasses with titanium frame. Scratch-resistant lenses, lightweight design, and premium carrying case included.",
+    "price": 89.99,
+    "stock": 55,
+    "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80",
+    "category": "Accessories",
+    "createdAt": { "$date": "2024-02-20T12:00:00.000Z" },
+    "updatedAt": { "$date": "2024-02-20T12:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0009" },
+    "name": "Wireless Charging Pad",
+    "description": "Qi-certified fast wireless charger with 15W max output. Compatible with all Qi-enabled devices. Anti-slip base and LED indicator.",
+    "price": 39.99,
+    "stock": 70,
+    "image": "https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?w=500&q=80",
+    "category": "Electronics",
+    "createdAt": { "$date": "2024-02-25T09:15:00.000Z" },
+    "updatedAt": { "$date": "2024-02-25T09:15:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0010" },
+    "name": "Organic Cotton T-Shirt",
+    "description": "Premium organic cotton crew neck t-shirt. Pre-shrunk, breathable fabric with reinforced stitching. Available in multiple colors.",
+    "price": 34.99,
+    "stock": 120,
+    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80",
+    "category": "Clothing",
+    "createdAt": { "$date": "2024-03-01T08:00:00.000Z" },
+    "updatedAt": { "$date": "2024-03-01T08:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0011" },
+    "name": "Portable Bluetooth Speaker",
+    "description": "Waterproof portable speaker with 360° sound, 20-hour battery, and built-in microphone. IPX7 rated for outdoor adventures.",
+    "price": 79.99,
+    "stock": 35,
+    "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80",
+    "category": "Electronics",
+    "createdAt": { "$date": "2024-03-05T11:00:00.000Z" },
+    "updatedAt": { "$date": "2024-03-05T11:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0012" },
+    "name": "Yoga Mat Premium",
+    "description": "Extra thick 6mm TPE yoga mat with alignment lines. Non-slip surface, eco-friendly material, and carrying strap included.",
+    "price": 59.99,
+    "stock": 50,
+    "image": "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500&q=80",
+    "category": "Sports",
+    "createdAt": { "$date": "2024-03-08T09:00:00.000Z" },
+    "updatedAt": { "$date": "2024-03-08T09:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0013" },
+    "name": "Stainless Steel Water Bottle",
+    "description": "Double-walled vacuum insulated water bottle. Keeps drinks cold for 24 hours or hot for 12 hours. BPA-free, 32oz capacity.",
+    "price": 24.99,
+    "stock": 90,
+    "image": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80",
+    "category": "Home & Kitchen",
+    "createdAt": { "$date": "2024-03-10T10:30:00.000Z" },
+    "updatedAt": { "$date": "2024-03-10T10:30:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0014" },
+    "name": "Denim Jacket Classic",
+    "description": "Vintage-style denim jacket with button closure, chest pockets, and adjustable cuffs. Medium wash, 100% cotton.",
+    "price": 89.99,
+    "stock": 40,
+    "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80",
+    "category": "Clothing",
+    "createdAt": { "$date": "2024-03-12T14:00:00.000Z" },
+    "updatedAt": { "$date": "2024-03-12T14:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0015" },
+    "name": "USB-C Hub Multiport",
+    "description": "7-in-1 USB-C hub with HDMI 4K output, 3 USB 3.0 ports, SD/TF card reader, and 100W PD charging. Aluminum body.",
+    "price": 49.99,
+    "stock": 65,
+    "image": "https://images.unsplash.com/photo-1625842268584-8f3296236571?w=500&q=80",
+    "category": "Electronics",
+    "createdAt": { "$date": "2024-03-15T08:30:00.000Z" },
+    "updatedAt": { "$date": "2024-03-15T08:30:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0016" },
+    "name": "Canvas Sneakers",
+    "description": "Classic canvas low-top sneakers with vulcanized rubber sole. Breathable fabric, cushioned insole, and reinforced toe cap.",
+    "price": 64.99,
+    "stock": 75,
+    "image": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&q=80",
+    "category": "Footwear",
+    "createdAt": { "$date": "2024-03-18T09:00:00.000Z" },
+    "updatedAt": { "$date": "2024-03-18T09:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0017" },
+    "name": "Scented Candle Set",
+    "description": "Set of 3 soy wax candles with natural essential oils. Lavender, vanilla, and citrus scents. 40-hour burn time each.",
+    "price": 32.99,
+    "stock": 60,
+    "image": "https://images.unsplash.com/photo-1602607667685-8643e1e50c1e?w=500&q=80",
+    "category": "Home & Kitchen",
+    "createdAt": { "$date": "2024-03-20T11:30:00.000Z" },
+    "updatedAt": { "$date": "2024-03-20T11:30:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0018" },
+    "name": "Leather Wallet Slim",
+    "description": "Genuine leather bifold wallet with RFID blocking technology. 6 card slots, 2 bill compartments, and ID window.",
+    "price": 44.99,
+    "stock": 50,
+    "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&q=80",
+    "category": "Accessories",
+    "createdAt": { "$date": "2024-03-22T10:00:00.000Z" },
+    "updatedAt": { "$date": "2024-03-22T10:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0019" },
+    "name": "Gaming Mouse Wireless",
+    "description": "Ultra-lightweight wireless gaming mouse with 25K DPI sensor, 70-hour battery, and customizable RGB lighting. 6 programmable buttons.",
+    "price": 69.99,
+    "stock": 3,
+    "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&q=80",
+    "category": "Electronics",
+    "createdAt": { "$date": "2024-03-24T13:00:00.000Z" },
+    "updatedAt": { "$date": "2024-03-24T13:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665b1c3d4e5f6a7b8c9d0020" },
+    "name": "Plant Pot Ceramic Set",
+    "description": "Set of 3 modern ceramic plant pots with drainage holes and saucers. Matte finish in white, gray, and black. Ideal for succulents.",
+    "price": 38.99,
+    "stock": 0,
+    "image": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500&q=80",
+    "category": "Home & Kitchen",
+    "createdAt": { "$date": "2024-03-25T09:00:00.000Z" },
+    "updatedAt": { "$date": "2024-03-25T09:00:00.000Z" }
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "_id": { "$oid": "665c1d4e5f6a7b8c9d0e0001" },
+    "userId": "665a1b2c3d4e5f6a7b8c9d02",
+    "items": [
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0001",
+        "name": "Wireless Noise-Cancelling Headphones",
+        "price": 299.99,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80"
+      },
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0005",
+        "name": "Mechanical Keyboard RGB",
+        "price": 159.99,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=500&q=80"
+      }
+    ],
+    "totalAmount": 459.98,
+    "status": "delivered",
+    "createdAt": { "$date": "2024-02-15T14:30:00.000Z" },
+    "updatedAt": { "$date": "2024-02-20T10:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665c1d4e5f6a7b8c9d0e0002" },
+    "userId": "665a1b2c3d4e5f6a7b8c9d02",
+    "items": [
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0004",
+        "name": "Running Shoes Ultra",
+        "price": 179.99,
+        "quantity": 2,
+        "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80"
+      }
+    ],
+    "totalAmount": 359.98,
+    "status": "shipped",
+    "createdAt": { "$date": "2024-03-10T09:15:00.000Z" },
+    "updatedAt": { "$date": "2024-03-12T11:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665c1d4e5f6a7b8c9d0e0003" },
+    "userId": "665a1b2c3d4e5f6a7b8c9d03",
+    "items": [
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0010",
+        "name": "Organic Cotton T-Shirt",
+        "price": 34.99,
+        "quantity": 3,
+        "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80"
+      },
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0014",
+        "name": "Denim Jacket Classic",
+        "price": 89.99,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80"
+      },
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0008",
+        "name": "Polarized Sunglasses",
+        "price": 89.99,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80"
+      }
+    ],
+    "totalAmount": 284.95,
+    "status": "processing",
+    "createdAt": { "$date": "2024-03-18T16:45:00.000Z" },
+    "updatedAt": { "$date": "2024-03-19T08:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665c1d4e5f6a7b8c9d0e0004" },
+    "userId": "665a1b2c3d4e5f6a7b8c9d04",
+    "items": [
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0002",
+        "name": "Smart Watch Pro",
+        "price": 399.99,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80"
+      },
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0009",
+        "name": "Wireless Charging Pad",
+        "price": 39.99,
+        "quantity": 2,
+        "image": "https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?w=500&q=80"
+      }
+    ],
+    "totalAmount": 479.97,
+    "status": "pending",
+    "createdAt": { "$date": "2024-03-22T12:00:00.000Z" },
+    "updatedAt": { "$date": "2024-03-22T12:00:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "665c1d4e5f6a7b8c9d0e0005" },
+    "userId": "665a1b2c3d4e5f6a7b8c9d03",
+    "items": [
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0006",
+        "name": "Ceramic Coffee Mug Set",
+        "price": 49.99,
+        "quantity": 2,
+        "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=500&q=80"
+      },
+      {
+        "productId": "665b1c3d4e5f6a7b8c9d0017",
+        "name": "Scented Candle Set",
+        "price": 32.99,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1602607667685-8643e1e50c1e?w=500&q=80"
+      }
+    ],
+    "totalAmount": 132.97,
+    "status": "delivered",
+    "createdAt": { "$date": "2024-03-01T11:30:00.000Z" },
+    "updatedAt": { "$date": "2024-03-06T14:00:00.000Z" }
+  }
+]
