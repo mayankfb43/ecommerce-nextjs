@@ -74,6 +74,10 @@ export default function AdminProductManager() {
     search,
     sortBy,
     sortOrder,
+  }, {
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+    pollingInterval: 60000, // Background refresh every 1 minute
   });
 
   const [createProduct, { isLoading: creating }] = useCreateProductMutation();

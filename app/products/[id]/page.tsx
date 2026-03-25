@@ -22,7 +22,10 @@ export default function ProductDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
-  const { data: product, isLoading, error } = useGetProductQuery(id);
+  const { data: product, isLoading, error } = useGetProductQuery(id, {
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  });
   const dispatch = useAppDispatch();
   const router = useRouter();
 

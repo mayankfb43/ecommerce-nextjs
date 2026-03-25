@@ -42,9 +42,9 @@ export const productApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.products.map(({ _id }) => ({ type: "Product" as const, id: _id })),
-              { type: "Product", id: "LIST" },
-            ]
+            ...result.products.map(({ _id }) => ({ type: "Product" as const, id: _id })),
+            { type: "Product", id: "LIST" },
+          ]
           : [{ type: "Product", id: "LIST" }],
     }),
     getProduct: builder.query<Product, string>({

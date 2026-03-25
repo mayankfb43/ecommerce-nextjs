@@ -13,7 +13,10 @@ interface ProductListProps {
 }
 
 export default function ProductList({ category }: ProductListProps) {
-  const { data, isLoading, error } = useGetProductsQuery({ category });
+  const { data, isLoading, error } = useGetProductsQuery({ category }, {
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  });
   const products = data?.products;
 
   if (isLoading) {
