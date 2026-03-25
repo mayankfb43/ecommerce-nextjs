@@ -7,6 +7,17 @@
     "email": "admin@shopvibe.com",
     "password": "$2b$12$4qJ//C8cxP1DoDCUhRuzjux.2DP8Fi.8o86C6/XEFlkVh/g786MaS",
     "role": "admin",
+    "permissions": [
+      "product:view",
+      "product:create",
+      "product:update",
+      "product:delete",
+      "order:create",
+      "order:view",
+      "order:update_status",
+      "cart:add",
+      "cart:view"
+    ],
     "createdAt": {
       "$date": "2024-01-15T10:00:00.000Z"
     },
@@ -22,6 +33,13 @@
     "email": "john@example.com",
     "password": "$2b$12$4qJ//C8cxP1DoDCUhRuzjux.2DP8Fi.8o86C6/XEFlkVh/g786MaS",
     "role": "customer",
+    "permissions": [
+      "product:view",
+      "order:create",
+      "order:view",
+      "cart:add",
+      "cart:view"
+    ],
     "createdAt": {
       "$date": "2024-02-01T08:30:00.000Z"
     },
@@ -37,6 +55,13 @@
     "email": "jane@example.com",
     "password": "$2b$12$4qJ//C8cxP1DoDCUhRuzjux.2DP8Fi.8o86C6/XEFlkVh/g786MaS",
     "role": "customer",
+    "permissions": [
+      "product:view",
+      "order:create",
+      "order:view",
+      "cart:add",
+      "cart:view"
+    ],
     "createdAt": {
       "$date": "2024-02-10T14:20:00.000Z"
     },
@@ -52,6 +77,13 @@
     "email": "mike@example.com",
     "password": "$2b$12$4qJ//C8cxP1DoDCUhRuzjux.2DP8Fi.8o86C6/XEFlkVh/g786MaS",
     "role": "customer",
+    "permissions": [
+      "product:view",
+      "order:create",
+      "order:view",
+      "cart:add",
+      "cart:view"
+    ],
     "createdAt": {
       "$date": "2024-03-05T11:45:00.000Z"
     },

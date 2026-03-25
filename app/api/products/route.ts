@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/db";
 import Product from "@/lib/models/Product";
-import { getSession } from "@/lib/session";
-import { forbiddenResponse, unauthorizedResponse } from "@/lib/auth";
+import { requirePermission } from "@/lib/auth";
+import { PERMISSIONS } from "@/lib/permissions";
 
 export async function GET(request: Request) {
   try {
@@ -26,9 +26,8 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const session = await getSession();
-    if (!session) return unauthorizedResponse();
-    if (session.role !== "admin") return forbiddenResponse();
+    const denied = await requirePermission(PERMISSIONS.PRODUCT_CREATE);
+    if (denied) return denied;
 
     const body = await request.json();
     const { name, description, price, stock, image, category } = body;

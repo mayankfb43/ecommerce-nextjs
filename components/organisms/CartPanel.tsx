@@ -12,12 +12,15 @@ import { useRouter } from "next/navigation";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
+import { PERMISSIONS } from "@/lib/permissions";
 
 export default function CartPanel() {
   const { items, totalAmount } = useAppSelector((state) => state.cart);
+  const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
   const router = useRouter();
+  const canPlaceOrder = (user?.permissions ?? []).includes(PERMISSIONS.ORDER_CREATE);
 
   const handleCheckout = async () => {
     try {
@@ -100,10 +103,10 @@ export default function CartPanel() {
               <ShoppingCartCheckoutIcon />
             )
           }
-          disabled={isLoading}
+          disabled={isLoading || !canPlaceOrder}
           onClick={handleCheckout}
         >
-          {isLoading ? "Placing Order..." : "Place Order"}
+          {isLoading ? "Placing Order..." : canPlaceOrder ? "Place Order" : "Login to Order"}
         </Button>
       </Box>
     </Box>

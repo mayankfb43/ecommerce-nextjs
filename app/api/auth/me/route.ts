@@ -6,6 +6,7 @@ export async function GET() {
     if (!user) {
       return Response.json({ error: "Not authenticated" }, { status: 401 });
     }
+    // user object now includes permissions from getCurrentUser
     return Response.json({ user });
   } catch (error) {
     console.error("GetMe error:", error);

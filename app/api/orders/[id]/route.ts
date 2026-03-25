@@ -1,7 +1,8 @@
 import dbConnect from "@/lib/db";
 import Order from "@/lib/models/Order";
 import { getSession } from "@/lib/session";
-import { unauthorizedResponse, forbiddenResponse } from "@/lib/auth";
+import { unauthorizedResponse, forbiddenResponse, requirePermission } from "@/lib/auth";
+import { PERMISSIONS } from "@/lib/permissions";
 import type { NextRequest } from "next/server";
 
 export async function GET(
@@ -39,9 +40,8 @@ export async function PUT(
   ctx: RouteContext<"/api/orders/[id]">
 ) {
   try {
-    const session = await getSession();
-    if (!session) return unauthorizedResponse();
-    if (session.role !== "admin") return forbiddenResponse();
+    const denied = await requirePermission(PERMISSIONS.ORDER_UPDATE_STATUS);
+    if (denied) return denied;
 
     const { id } = await ctx.params;
     const { status } = await request.json();
