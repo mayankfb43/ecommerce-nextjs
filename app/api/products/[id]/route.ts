@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/db";
 import Product from "@/lib/models/Product";
-import { getSession } from "@/lib/session";
-import { forbiddenResponse, unauthorizedResponse } from "@/lib/auth";
+import { requirePermission } from "@/lib/auth";
+import { PERMISSIONS } from "@/lib/permissions";
 import type { NextRequest } from "next/server";
 
 export async function GET(
@@ -30,9 +30,8 @@ export async function PUT(
   ctx: RouteContext<"/api/products/[id]">
 ) {
   try {
-    const session = await getSession();
-    if (!session) return unauthorizedResponse();
-    if (session.role !== "admin") return forbiddenResponse();
+    const denied = await requirePermission(PERMISSIONS.PRODUCT_UPDATE);
+    if (denied) return denied;
 
     const { id } = await ctx.params;
     const body = await request.json();
@@ -62,9 +61,8 @@ export async function DELETE(
   ctx: RouteContext<"/api/products/[id]">
 ) {
   try {
-    const session = await getSession();
-    if (!session) return unauthorizedResponse();
-    if (session.role !== "admin") return forbiddenResponse();
+    const denied = await requirePermission(PERMISSIONS.PRODUCT_DELETE);
+    if (denied) return denied;
 
     const { id } = await ctx.params;
 

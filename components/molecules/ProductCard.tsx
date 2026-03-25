@@ -9,9 +9,11 @@ import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Button from "@/components/atoms/Button";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useAppDispatch } from "@/store/hooks";
+import LoginIcon from "@mui/icons-material/Login";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addToCart } from "@/features/cart/cartSlice";
 import { useRouter } from "next/navigation";
+import { PERMISSIONS } from "@/lib/permissions";
 
 interface ProductCardProps {
   _id: string;
@@ -34,9 +36,15 @@ export default function ProductCard({
 }: ProductCardProps) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { user } = useAppSelector((state) => state.auth);
+  const canAddToCart = (user?.permissions ?? []).includes(PERMISSIONS.CART_ADD);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (!canAddToCart) {
+      router.push("/login");
+      return;
+    }
     dispatch(
       addToCart({
         productId: _id,
@@ -123,11 +131,11 @@ export default function ProductCard({
         <Button
           gradient
           fullWidth
-          startIcon={<ShoppingCartIcon />}
+          startIcon={canAddToCart ? <ShoppingCartIcon /> : <LoginIcon />}
           disabled={stock === 0}
           onClick={handleAddToCart}
         >
-          {stock === 0 ? "Out of Stock" : "Add to Cart"}
+          {stock === 0 ? "Out of Stock" : canAddToCart ? "Add to Cart" : "Login to Buy"}
         </Button>
       </CardActions>
     </Card>

@@ -30,6 +30,8 @@ import {
   useDeleteProductMutation,
   Product,
 } from "@/features/products/productApi";
+import { useAppSelector } from "@/store/hooks";
+import { PERMISSIONS } from "@/lib/permissions";
 
 interface ProductForm {
   name: string;
@@ -59,6 +61,13 @@ export default function AdminProductManager() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<ProductForm>(emptyForm);
   const [error, setError] = useState("");
+  const { user } = useAppSelector((state) => state.auth);
+
+  // Permission checks
+  const permissions = user?.permissions ?? [];
+  const canCreate = permissions.includes(PERMISSIONS.PRODUCT_CREATE);
+  const canUpdate = permissions.includes(PERMISSIONS.PRODUCT_UPDATE);
+  const canDelete = permissions.includes(PERMISSIONS.PRODUCT_DELETE);
 
   const handleOpen = (product?: Product) => {
     if (product) {
@@ -129,14 +138,15 @@ export default function AdminProductManager() {
         <Typography variant="h5" fontWeight={700}>
           Products ({products?.length || 0})
         </Typography>
-        <Button
-          variant="contained"
-          gradient
-          startIcon={<AddIcon />}
-          onClick={() => handleOpen()}
-        >
-          Add Product
-        </Button>
+        {canCreate && (
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => handleOpen()}
+          >
+            Add Product
+          </Button>
+        )}
       </Box>
 
       <TableContainer component={Paper} sx={{ borderRadius: 3 }}>
@@ -148,7 +158,9 @@ export default function AdminProductManager() {
               <TableCell sx={{ fontWeight: 700 }}>Category</TableCell>
               <TableCell sx={{ fontWeight: 700 }}>Price</TableCell>
               <TableCell sx={{ fontWeight: 700 }}>Stock</TableCell>
-              <TableCell sx={{ fontWeight: 700 }}>Actions</TableCell>
+              {(canUpdate || canDelete) && (
+                <TableCell sx={{ fontWeight: 700 }}>Actions</TableCell>
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -181,14 +193,20 @@ export default function AdminProductManager() {
                     color={product.stock > 5 ? "success" : product.stock > 0 ? "warning" : "error"}
                   />
                 </TableCell>
-                <TableCell>
-                  <IconButton color="primary" onClick={() => handleOpen(product)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton color="error" onClick={() => handleDelete(product._id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
+                {(canUpdate || canDelete) && (
+                  <TableCell>
+                    {canUpdate && (
+                      <IconButton color="primary" onClick={() => handleOpen(product)}>
+                        <EditIcon />
+                      </IconButton>
+                    )}
+                    {canDelete && (
+                      <IconButton color="error" onClick={() => handleDelete(product._id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>
@@ -250,23 +268,25 @@ export default function AdminProductManager() {
             />
           </Box>
         </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2 }}>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button
-            variant="contained"
-            gradient
-            onClick={handleSubmit}
-            disabled={creating || updating}
-          >
-            {creating || updating ? (
-              <CircularProgress size={20} color="inherit" />
-            ) : editingId ? (
-              "Update"
-            ) : (
-              "Create"
-            )}
-          </Button>
-        </DialogActions>
+        {(canCreate || canUpdate) && (
+          <DialogActions sx={{ px: 3, pb: 2 }}>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSubmit}
+              disabled={creating || updating}
+            >
+              {creating || updating ? (
+                <CircularProgress size={20} color="inherit" />
+              ) : editingId ? (
+                "Update"
+              ) : (
+                "Create"
+              )}
+            </Button>
+          </DialogActions>
+        )}
       </Dialog>
     </Box>
   );

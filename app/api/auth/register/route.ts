@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/db";
 import User from "@/lib/models/User";
 import { createSession } from "@/lib/session";
+import { getPermissionsForRole } from "@/lib/permissions";
 import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
@@ -32,14 +33,16 @@ export async function POST(request: Request) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
+    const permissions = getPermissionsForRole("customer");
     const user = await User.create({
       name,
       email: email.toLowerCase(),
       password: hashedPassword,
       role: "customer",
+      permissions,
     });
 
-    await createSession(String(user._id), user.role);
+    await createSession(String(user._id), user.role, permissions);
 
     return Response.json(
       {
@@ -48,6 +51,7 @@ export async function POST(request: Request) {
           name: user.name,
           email: user.email,
           role: user.role,
+          permissions: user.permissions,
         },
       },
       { status: 201 }

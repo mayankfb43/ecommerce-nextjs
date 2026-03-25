@@ -35,11 +35,8 @@ export default function AdminLayout({
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   useGetMeQuery(undefined);
 
-  useEffect(() => {
-    if (isAuthenticated && user?.role !== "admin") {
-      router.push("/");
-    }
-  }, [isAuthenticated, user, router]);
+  // Server-side middleware now handles redirection to /login and /
+  // Client-side checks are still useful for UI consistency but the redirect is redundant
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
