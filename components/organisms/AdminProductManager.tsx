@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@/components/atoms/Button";
@@ -32,6 +32,11 @@ import {
 } from "@/features/products/productApi";
 import { useAppSelector } from "@/store/hooks";
 import { PERMISSIONS } from "@/lib/permissions";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import TablePagination from "@mui/material/TablePagination";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import SearchIcon from "@mui/icons-material/Search";
+import InputAdornment from "@mui/material/InputAdornment";
 
 interface ProductForm {
   name: string;
@@ -52,7 +57,25 @@ const emptyForm: ProductForm = {
 };
 
 export default function AdminProductManager() {
-  const { data: products, isLoading } = useGetProductsQuery({});
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // URL Params State
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = parseInt(searchParams.get("limit") || "10");
+  const search = searchParams.get("search") || "";
+  const sortBy = searchParams.get("sortBy") || "createdAt";
+  const sortOrder = (searchParams.get("sortOrder") as "asc" | "desc") || "desc";
+
+  const { data, isLoading } = useGetProductsQuery({
+    page,
+    limit,
+    search,
+    sortBy,
+    sortOrder,
+  });
+
   const [createProduct, { isLoading: creating }] = useCreateProductMutation();
   const [updateProduct, { isLoading: updating }] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation();
@@ -63,11 +86,66 @@ export default function AdminProductManager() {
   const [error, setError] = useState("");
   const { user } = useAppSelector((state) => state.auth);
 
+  // Local Search State (for debouncing)
+  const [localSearch, setLocalSearch] = useState(search);
+
+  // Debounced search effect: Update URL only after 500ms of inactivity
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (localSearch !== search) {
+        updateUrl({ search: localSearch, page: 1 });
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [localSearch, search]);
+
+  // Sync local search with URL param if it changes (e.g., on clear or browser navigation)
+  useEffect(() => {
+    setLocalSearch(search);
+  }, [search]);
+
+  const products = data?.products || [];
+  const totalItems = data?.total || 0;
+
   // Permission checks
   const permissions = user?.permissions ?? [];
   const canCreate = permissions.includes(PERMISSIONS.PRODUCT_CREATE);
   const canUpdate = permissions.includes(PERMISSIONS.PRODUCT_UPDATE);
   const canDelete = permissions.includes(PERMISSIONS.PRODUCT_DELETE);
+
+  const updateUrl = (newParams: Record<string, string | number | null>) => {
+    const params = new URLSearchParams(searchParams);
+    Object.entries(newParams).forEach(([key, value]) => {
+      if (value === null || value === "") {
+        params.delete(key);
+      } else {
+        params.set(key, String(value));
+      }
+    });
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const handlePageChange = (_: any, newPage: number) => {
+    updateUrl({ page: newPage + 1 });
+  };
+
+  const handleLimitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateUrl({ limit: event.target.value, page: 1 });
+  };
+
+  const handleSort = (field: string) => {
+    const isAsc = sortBy === field && sortOrder === "asc";
+    updateUrl({
+      sortBy: field,
+      sortOrder: isAsc ? "desc" : "asc",
+      page: 1,
+    });
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLocalSearch(event.target.value);
+  };
 
   const handleOpen = (product?: Product) => {
     if (product) {
@@ -134,19 +212,36 @@ export default function AdminProductManager() {
 
   return (
     <Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-        <Typography variant="h5" fontWeight={700}>
-          Products ({products?.length || 0})
+      <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3, gap: 2, alignItems: "center" }}>
+        <Typography variant="h5" fontWeight={700} sx={{ minWidth: "fit-content" }}>
+          Products ({totalItems})
         </Typography>
-        {canCreate && (
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={() => handleOpen()}
-          >
-            Add Product
-          </Button>
-        )}
+        
+        <Box sx={{ display: "flex", gap: 2, flexGrow: 1, justifyContent: "flex-end" }}>
+          <Input
+            placeholder="Search products..."
+            size="small"
+            value={localSearch}
+            onChange={handleSearchChange}
+            sx={{ maxWidth: 300 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon color="action" />
+                </InputAdornment>
+              ),
+            }}
+          />
+          {canCreate && (
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={() => handleOpen()}
+            >
+              Add Product
+            </Button>
+          )}
+        </Box>
       </Box>
 
       <TableContainer component={Paper} sx={{ borderRadius: 3 }}>
@@ -154,10 +249,42 @@ export default function AdminProductManager() {
           <TableHead>
             <TableRow sx={{ bgcolor: "background.default" }}>
               <TableCell sx={{ fontWeight: 700 }}>Image</TableCell>
-              <TableCell sx={{ fontWeight: 700 }}>Name</TableCell>
-              <TableCell sx={{ fontWeight: 700 }}>Category</TableCell>
-              <TableCell sx={{ fontWeight: 700 }}>Price</TableCell>
-              <TableCell sx={{ fontWeight: 700 }}>Stock</TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>
+                <TableSortLabel
+                  active={sortBy === "name"}
+                  direction={sortBy === "name" ? sortOrder : "asc"}
+                  onClick={() => handleSort("name")}
+                >
+                  Name
+                </TableSortLabel>
+              </TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>
+                <TableSortLabel
+                  active={sortBy === "category"}
+                  direction={sortBy === "category" ? sortOrder : "asc"}
+                  onClick={() => handleSort("category")}
+                >
+                  Category
+                </TableSortLabel>
+              </TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>
+                <TableSortLabel
+                  active={sortBy === "price"}
+                  direction={sortBy === "price" ? sortOrder : "asc"}
+                  onClick={() => handleSort("price")}
+                >
+                  Price
+                </TableSortLabel>
+              </TableCell>
+              <TableCell sx={{ fontWeight: 700 }}>
+                <TableSortLabel
+                  active={sortBy === "stock"}
+                  direction={sortBy === "stock" ? sortOrder : "asc"}
+                  onClick={() => handleSort("stock")}
+                >
+                  Stock
+                </TableSortLabel>
+              </TableCell>
               {(canUpdate || canDelete) && (
                 <TableCell sx={{ fontWeight: 700 }}>Actions</TableCell>
               )}
@@ -211,6 +338,15 @@ export default function AdminProductManager() {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={totalItems}
+          rowsPerPage={limit}
+          page={page - 1}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleLimitChange}
+        />
       </TableContainer>
 
       <Dialog open={dialogOpen} onClose={handleClose} maxWidth="sm" fullWidth>

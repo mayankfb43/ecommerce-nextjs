@@ -12,20 +12,37 @@ export interface Product {
   updatedAt: string;
 }
 
+export interface PaginatedResponse<T> {
+  products: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface ProductQueryParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  category?: string;
+}
+
 export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api/products" }),
   tagTypes: ["Product"],
   endpoints: (builder) => ({
-    getProducts: builder.query<Product[], { category?: string }>({
-      query: ({ category } = {}) => ({
+    getProducts: builder.query<PaginatedResponse<Product>, ProductQueryParams>({
+      query: (params) => ({
         url: "/",
-        params: category ? { category } : {},
+        params,
       }),
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ _id }) => ({ type: "Product" as const, id: _id })),
+              ...result.products.map(({ _id }) => ({ type: "Product" as const, id: _id })),
               { type: "Product", id: "LIST" },
             ]
           : [{ type: "Product", id: "LIST" }],

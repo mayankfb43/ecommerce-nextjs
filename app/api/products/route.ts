@@ -7,14 +7,46 @@ export async function GET(request: Request) {
   try {
     await dbConnect();
     const { searchParams } = new URL(request.url);
+    
+    // 1. Get query parameters
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = parseInt(searchParams.get("limit") || "10");
+    const search = searchParams.get("search") || "";
+    const sortBy = searchParams.get("sortBy") || "createdAt";
+    const sortOrder = searchParams.get("sortOrder") || "desc";
     const category = searchParams.get("category");
 
-    const filter = category ? { category } : {};
-    const products = await Product.find(filter).sort({ createdAt: -1 }).lean();
+    // 2. Build Filter
+    const filter: any = {};
+    if (category) filter.category = category;
+    if (search) {
+      filter.$or = [
+        { name: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } },
+      ];
+    }
 
-    return Response.json(
-      products.map((p) => ({ ...p, _id: String(p._id) }))
-    );
+    // 3. Build Sorting
+    const sort: any = {};
+    sort[sortBy] = sortOrder === "desc" ? -1 : 1;
+
+    // 4. Execute Queries
+    const skip = (page - 1) * limit;
+    const total = await Product.countDocuments(filter);
+    const products = await Product.find(filter)
+      .sort(sort)
+      .skip(skip)
+      .limit(limit)
+      .lean();
+
+    return Response.json({
+      products: products.map((p) => ({ ...p, _id: String(p._id) })),
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    });
   } catch (error) {
     console.error("Get products error:", error);
     return Response.json(
