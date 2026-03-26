@@ -17,8 +17,30 @@ export async function GET(request: Request) {
     const category = searchParams.get("category");
 
     // 2. Build Filter
-    const filter: any = {};
+    const filter: Record<string, unknown> = {};
     if (category) filter.category = category;
+    
+    const nameFilter = searchParams.get("name");
+    if (nameFilter) filter.name = { $regex: nameFilter, $options: "i" };
+
+    const minPrice = searchParams.get("minPrice");
+    const maxPrice = searchParams.get("maxPrice");
+    if (minPrice || maxPrice) {
+      const priceFilter: Record<string, number> = {};
+      if (minPrice) priceFilter.$gte = parseFloat(minPrice);
+      if (maxPrice) priceFilter.$lte = parseFloat(maxPrice);
+      filter.price = priceFilter;
+    }
+
+    const minStock = searchParams.get("minStock");
+    const maxStock = searchParams.get("maxStock");
+    if (minStock || maxStock) {
+      const stockFilter: Record<string, number> = {};
+      if (minStock) stockFilter.$gte = parseInt(minStock);
+      if (maxStock) stockFilter.$lte = parseInt(maxStock);
+      filter.stock = stockFilter;
+    }
+
     if (search) {
       filter.$or = [
         { name: { $regex: search, $options: "i" } },
@@ -28,8 +50,9 @@ export async function GET(request: Request) {
     }
 
     // 3. Build Sorting
-    const sort: any = {};
-    sort[sortBy] = sortOrder === "desc" ? -1 : 1;
+    const sort: Record<string, 1 | -1> = {};
+    const order = sortOrder === "desc" ? -1 : (1 as const);
+    sort[sortBy] = order;
 
     // 4. Execute Queries
     const skip = (page - 1) * limit;

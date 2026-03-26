@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { authApi } from "./authApi";
 
 interface User {
   _id: string;
@@ -30,6 +31,29 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authApi.endpoints.getMe.matchFulfilled,
+      (state, { payload }) => {
+        state.user = payload.user; // Extract from { user: ... }
+        state.isAuthenticated = true;
+      }
+    );
+    builder.addMatcher(
+      authApi.endpoints.login.matchFulfilled,
+      (state, { payload }) => {
+        state.user = payload.user; // Extract from { user: ... }
+        state.isAuthenticated = true;
+      }
+    );
+    builder.addMatcher(
+      authApi.endpoints.logout.matchFulfilled,
+      (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
+      }
+    );
   },
 });
 

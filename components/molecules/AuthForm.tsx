@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Input from "@/components/atoms/Input";
-import Button from "@/components/atoms/Button";
+import SubmitButton from "@/components/molecules/SubmitButton";
 
 interface AuthFormProps {
   mode: "login" | "register";
@@ -98,22 +98,13 @@ export default function AuthForm({
           required
           inputProps={{ minLength: 6 }}
         />
-        <Button
-          type="submit"
-          variant="contained"
+        <SubmitButton
+          loading={isLoading}
+          fullWidth
           size="large"
-          gradient
-          disabled={isLoading}
           sx={{ mt: 1 }}
-        >
-          {isLoading ? (
-            <CircularProgress size={24} color="inherit" />
-          ) : mode === "login" ? (
-            "Sign In"
-          ) : (
-            "Create Account"
-          )}
-        </Button>
+          label={mode === "login" ? "Sign In" : "Create Account"}
+        />
       </Box>
     </Box>
   );

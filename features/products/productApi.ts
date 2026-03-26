@@ -27,6 +27,11 @@ export interface ProductQueryParams {
   sortBy?: string;
   sortOrder?: "asc" | "desc";
   category?: string;
+  name?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  minStock?: number;
+  maxStock?: number;
 }
 
 export const productApi = createApi({
