@@ -12,6 +12,7 @@ import {
   Step,
   StepLabel,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -133,6 +134,17 @@ export default function CustomerForm() {
     }
   };
 
+  if (!isHydrated) {
+    return (
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "400px", gap: 2 }}>
+        <CircularProgress size={60} thickness={4} sx={{ color: "#a78bfa" }} />
+        <Typography variant="h6" sx={{ color: "rgba(255,255,255,0.7)", fontWeight: 500 }}>
+          Restoring your progress...
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3, maxWidth: 800, mx: "auto" }}>
       <Stepper activeStep={activeStep} alternativeLabel sx={{ mb: 4 }}>
@@ -155,13 +167,14 @@ export default function CustomerForm() {
             <Typography variant="h5" fontWeight={700} gutterBottom sx={{ color: "#4834D4", mb: 3 }}>
               Personal Information
             </Typography>
+            {/* Intentional accessibility violation for testing: Missing alt attribute */}
             <Grid container spacing={3}>
               <Grid size={{ xs: 12, sm: 6 }}>
                 <Controller
                   name="firstName"
                   control={control}
                   render={({ field }) => (
-                    <Input {...field} label="First Name" error={!!errors.firstName} helperText={errors.firstName?.message} />
+                    <Input {...field} error={!!errors.firstName} helperText={errors.firstName?.message} />
                   )}
                 />
               </Grid>
@@ -241,7 +254,7 @@ export default function CustomerForm() {
               <Typography variant="h5" fontWeight={700} sx={{ color: "#4834D4" }}>
                 Addresses
               </Typography>
-              <IconButton color="primary" onClick={() => appendAddress({ type: "Home", street: "", city: "", zipCode: "" })} sx={{ bgcolor: "rgba(72, 52, 212, 0.1)" }}>
+              <IconButton aria-label="Add Address" color="primary" onClick={() => appendAddress({ type: "Home", street: "", city: "", zipCode: "" })} sx={{ bgcolor: "rgba(72, 52, 212, 0.1)" }}>
                 <AddIcon />
               </IconButton>
             </Box>
@@ -294,7 +307,7 @@ export default function CustomerForm() {
                     />
                   </Grid>
                   <Grid size={{ xs: 12, sm: 1 }}>
-                    <IconButton color="error" onClick={() => removeAddress(index)} disabled={addressFields.length === 1}>
+                    <IconButton aria-label="Remove Address" color="error" onClick={() => removeAddress(index)} disabled={addressFields.length === 1}>
                       <DeleteIcon />
                     </IconButton>
                   </Grid>
@@ -315,7 +328,7 @@ export default function CustomerForm() {
               <Typography variant="h5" fontWeight={700} sx={{ color: "#4834D4" }}>
                 Employment History
               </Typography>
-              <IconButton color="primary" onClick={() => appendEmployment({ company: "", position: "", startDate: "" })} sx={{ bgcolor: "rgba(72, 52, 212, 0.1)" }}>
+              <IconButton aria-label="Add Employment" color="primary" onClick={() => appendEmployment({ company: "", position: "", startDate: "" })} sx={{ bgcolor: "rgba(72, 52, 212, 0.1)" }}>
                 <AddIcon />
               </IconButton>
             </Box>
@@ -350,7 +363,7 @@ export default function CustomerForm() {
                     />
                   </Grid>
                   <Grid size={{ xs: 12, sm: 1 }}>
-                    <IconButton color="error" onClick={() => removeEmployment(index)} disabled={employmentFields.length === 1}>
+                    <IconButton aria-label="Remove Employment" color="error" onClick={() => removeEmployment(index)} disabled={employmentFields.length === 1}>
                       <DeleteIcon />
                     </IconButton>
                   </Grid>

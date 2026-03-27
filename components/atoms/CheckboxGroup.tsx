@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import {
   FormControl,
   FormLabel,
@@ -31,6 +32,8 @@ export default function CheckboxGroup({
   error,
   helperText,
 }: CheckboxGroupProps) {
+  const labelId = useId();
+
   const handleChange = (optionValue: string) => {
     const newValue = value.includes(optionValue)
       ? value.filter((v) => v !== optionValue)
@@ -40,8 +43,8 @@ export default function CheckboxGroup({
 
   return (
     <FormControl component="fieldset" error={error}>
-      <FormLabel component="legend">{label}</FormLabel>
-      <FormGroup>
+      <FormLabel id={labelId} component="legend">{label}</FormLabel>
+      <FormGroup aria-labelledby={labelId}>
         {options.map((option) => (
           <FormControlLabel
             key={option.value}

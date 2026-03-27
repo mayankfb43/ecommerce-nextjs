@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import {
   FormControl,
   InputLabel,
@@ -31,10 +32,13 @@ export default function Select({
   value,
   ...props
 }: SelectProps) {
+  const labelId = useId();
+
   return (
     <FormControl fullWidth error={error}>
-      <InputLabel>{label}</InputLabel>
+      <InputLabel id={labelId}>{label}</InputLabel>
       <MuiSelect
+        labelId={labelId}
         label={label}
         value={value ?? ""}
         onChange={(e) => onChange?.(e.target.value)}

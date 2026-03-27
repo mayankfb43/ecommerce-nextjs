@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import {
   FormControl,
   FormLabel,
@@ -31,10 +32,13 @@ export default function RadioGroup({
   error,
   helperText,
 }: RadioGroupProps) {
+  const labelId = useId();
+
   return (
     <FormControl component="fieldset" error={error}>
-      <FormLabel component="legend">{label}</FormLabel>
+      <FormLabel id={labelId} component="legend">{label}</FormLabel>
       <MuiRadioGroup
+        aria-labelledby={labelId}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       >
